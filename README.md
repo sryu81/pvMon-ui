@@ -7,32 +7,30 @@
 
 ## How to install ? 
 
-'''
+```
 npm install package.json
-'''
+```
 
 ## How to run ?
 ### In Local server
 
-'''
+```
 npm start
-'''
+```
 
 NPM will open the website for you using the default web browser.
 
 ### In apache server
 
 1. You need to build the package
-'''
+```
 npm run build
-'''
-
+```
 2. copy the "build" directory contents to /var/www/html/
-'''
+```
 cd build
 sudo cp -av * /var/www/html
-'''
-
+```
 3. Open the web server page. If you don't config anything on the webserver then [localhost](http://localhost) 
 
 
