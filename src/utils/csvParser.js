@@ -81,7 +81,7 @@ export function extractPVNamesFromCSV(csvContent) {
     // Check if line contains commas (CSV format)
     if (line.includes(',')) {
       // CSV format - take first column
-      const columns = parseCSVLine(line);
+      const columns = parseCSVLineWithSpecialChars(line);
       pvName = columns[0]?.trim() || '';
     } else {
       // Text format - entire line is PV name
@@ -94,6 +94,8 @@ export function extractPVNamesFromCSV(csvContent) {
     // Add if it's a valid PV name
     if (pvName && isValidPVName(pvName)) {
       pvNames.push(pvName);
+    } else if (pvName) {
+      console.warn(`Invalid PV name skipped: "${pvName}"`);
     }
   }
 
@@ -102,20 +104,31 @@ export function extractPVNamesFromCSV(csvContent) {
 }
 
 /**
- * Parses a single CSV line, handling quoted values
+ * Enhanced CSV line parser that handles special characters in quoted fields
  * @param {string} line - CSV line
  * @returns {array} - Array of column values
  */
-function parseCSVLine(line) {
+function parseCSVLineWithSpecialChars(line) {
   const result = [];
   let current = '';
   let inQuotes = false;
+  let quoteChar = null;
   
   for (let i = 0; i < line.length; i++) {
     const char = line[i];
     
-    if (char === '"') {
-      inQuotes = !inQuotes;
+    if ((char === '"' || char === "'") && !inQuotes) {
+      inQuotes = true;
+      quoteChar = char;
+    } else if (char === quoteChar && inQuotes) {
+      // Check for escaped quotes
+      if (i + 1 < line.length && line[i + 1] === quoteChar) {
+        current += char; // Add the escaped quote
+        i++; // Skip the next quote
+      } else {
+        inQuotes = false;
+        quoteChar = null;
+      }
     } else if (char === ',' && !inQuotes) {
       result.push(current);
       current = '';
@@ -124,7 +137,7 @@ function parseCSVLine(line) {
     }
   }
   
-  result.push(current); // Add the last column
+  result.push(current);
   return result;
 }
 
@@ -156,16 +169,43 @@ function isValidPVName(pvName) {
   const trimmed = pvName.trim();
   
   // Basic validation rules for EPICS PV names
+  // Fixed regex: removed unnecessary escapes for {}, [], and -
   return (
     trimmed.length > 0 &&                    // Not empty
     trimmed.length <= 60 &&                  // EPICS limit is usually 60 chars
     !/^\s*$/.test(trimmed) &&               // Not just whitespace
     !/^[0-9]/.test(trimmed) &&              // Doesn't start with number
-    /^[A-Za-z0-9_:.-]+$/.test(trimmed) &&   // Only valid characters
+    /^[A-Za-z0-9_:.{}[\]-]+$/.test(trimmed) && // Only valid characters (fixed escaping)
     !trimmed.includes('..') &&              // No double dots
     !trimmed.startsWith(':') &&             // Doesn't start with colon
-    !trimmed.endsWith(':')                  // Doesn't end with colon
+    !trimmed.endsWith(':') &&               // Doesn't end with colon
+    isBalancedBraces(trimmed)                // Braces must be balanced
   );
+}
+
+/**
+ * Checks if braces and brackets are balanced in PV name
+ * @param {string} pvName - PV name to check
+ * @returns {boolean} - True if braces and brackets are balanced
+ */
+function isBalancedBraces(pvName) {
+  let braceCount = 0;
+  let bracketCount = 0;
+  
+  for (let char of pvName) {
+    if (char === '{') braceCount++;
+    else if (char === '}') braceCount--;
+    else if (char === '[') bracketCount++;
+    else if (char === ']') bracketCount--;
+    
+    // If we have more closing than opening at any point, it's invalid
+    if (braceCount < 0 || bracketCount < 0) {
+      return false;
+    }
+  }
+  
+  // Both should be zero at the end (balanced)
+  return braceCount === 0 && bracketCount === 0;
 }
 
 /**
@@ -191,11 +231,11 @@ export function generateSampleCSV() {
 
 # CSV format (first column will be used):
 TEMP:SENSOR:01,Temperature Sensor 1,°C
-PRESSURE:GAUGE:01,Pressure Gauge 1,PSI
-VOLTAGE:SUPPLY:01,Voltage Supply 1,V
+PRESSURE:GAUGE:{01},Pressure Gauge 1,PSI
+VOLTAGE:SUPPLY:[01],Voltage Supply 1,V
 
 # Or simple text format (one PV per line):
-CURRENT:METER:01
-FLOW:SENSOR:01
+CURRENT:METER:{01}
+FLOW:SENSOR:[01]
 LEVEL:INDICATOR:01`;
 }
