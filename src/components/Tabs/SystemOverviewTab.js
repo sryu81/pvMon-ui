@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import './SystemOverviewTab.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL | 'http://localhost:8080/api/epics';
+const API_BASE_URL = process.env.EPICS_API_URL | 'http://localhost:8080/api/epics';
 
 function SystemOverviewTab({ 
   systems, 

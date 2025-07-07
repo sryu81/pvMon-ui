@@ -3,7 +3,7 @@ import PVChart from '../Common/PVChart';
 import './SystemViewTab.css';
 
 const STORAGE_KEY = 'epics-pv-selections';
-const API_BASE_URL = process.env.REACT_APP_API_URL | 'http://localhost:8080/api/epics';
+const API_BASE_URL = process.env.EPICS_API_URL | 'http://localhost:8080/api/epics';
 
 function SystemViewTab({ system, pvData, errors = {} }) {
   const [selectedPVs, setSelectedPVs] = useState(new Set());
