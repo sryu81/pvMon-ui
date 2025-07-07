@@ -16,7 +16,16 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
+  min-height: 40px; /* Fixed header height */
   gap: 15px;
+}
+
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  min-height: 40px; /* Fixed height to prevent shifting */
 }
 
 .header-main h2 {
@@ -28,6 +37,7 @@
 
 /* Health Status Indicator */
 .health-status {
+  min-width: 180px; /* Fixed minimum width */
   display: flex;
   align-items: center;
 }
@@ -42,6 +52,10 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  min-width: 160px; /* Fixed width to prevent text shifting */
+  justify-content: center;
+  white-space: nowrap; /* Prevent text wrapping */
+  transition: background-color 0.3s ease;
 }
 
 .health-indicator.up {
@@ -65,6 +79,7 @@
   border-radius: 50%;
   background-color: currentColor;
   animation: pulse 2s infinite;
+  flex-shrink: 0; /* Prevent dot from shrinking */
 }
 
 .health-indicator.up .health-dot {
@@ -86,16 +101,27 @@
 }
 
 .health-loading {
-  color: #6c757d;
-  font-size: 12px;
-  font-style: italic;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 20px;
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+  font-weight: 600;
+  font-size: 14px;
+  min-width: 160px; /* Same fixed width as health indicator */
+  justify-content: center;
+  white-space: nowrap;
 }
 
 /* Enhanced System Stats */
 .system-stats {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+  min-height: 50px; /* Fixed stats area height */
 }
 
 .stat-item.global {
@@ -418,6 +444,7 @@ color: #6c757d;
 }
 
 .status-badge {
+  min-height: 120px; /* Fixed minimum height */
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 11px;
@@ -934,6 +961,7 @@ color: #6c757d;
   font-size: 14px;
   padding: 4px 8px;
   background: #e3f2fd;
+  min-width: 200px; /* Fixed width to prevent shifting */
   border-radius: 4px;
 }
 
