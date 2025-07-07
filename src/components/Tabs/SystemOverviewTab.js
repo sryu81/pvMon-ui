@@ -1,6 +1,8 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import './SystemOverviewTab.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL | 'http://localhost:8080/api/epics';
+
 function SystemOverviewTab({ 
   systems, 
   updateSystems, 
@@ -18,7 +20,7 @@ function SystemOverviewTab({
   const fetchSystemHealth = useCallback(async () => {
     setHealthLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/epics/health');
+      const response = await fetch(`${API_BASE_URL}/health`);
       if (response.ok) {
         const health = await response.json();
         setSystemHealth(health);

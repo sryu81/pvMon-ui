@@ -3,6 +3,7 @@ import PVChart from '../Common/PVChart';
 import './SystemViewTab.css';
 
 const STORAGE_KEY = 'epics-pv-selections';
+const API_BASE_URL = process.env.REACT_APP_API_URL | 'http://localhost:8080/api/epics';
 
 function SystemViewTab({ system, pvData, errors = {} }) {
   const [selectedPVs, setSelectedPVs] = useState(new Set());
@@ -67,7 +68,7 @@ function SystemViewTab({ system, pvData, errors = {} }) {
   const fetchSystemHealth = useCallback(async () => {
     setHealthLoading(true);
     try {
-      const response = await fetch('http://localhost:8080/api/epics/health');
+      const response = await fetch(`${API_BASE_URL}/health`);
       if (response.ok) {
         const health = await response.json();
         setSystemHealth(health);

@@ -6,6 +6,8 @@ const app = express();
 const server = require('http').createServer(app);
 const wss = new WebSocket.Server({ server });
 
+const API_BASE_URL = process.env.REACT_APP_API_URL | 'http://localhost:8080/api/epics';
+
 // Initialize InfluxDB
 const influxDB = new InfluxDBService();
 
@@ -17,7 +19,7 @@ let errors = {};
 async function fetchEPICSData() {
   try {
     // Your existing EPICS data fetching logic
-    const response = await fetch('http://localhost:8080/api/epics/pvs');
+    const response = await fetch(`${API_BASE_URL}/pvs`);
     const data = await response.json();
     
     currentPVData = data.pvData || {};
