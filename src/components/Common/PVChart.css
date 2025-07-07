@@ -1,0 +1,173 @@
+.pv-chart-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.no-selection {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+}
+
+.no-selection h3 {
+  margin: 0 0 10px 0;
+  color: #495057;
+}
+
+.chart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border: 1px solid #dee2e6;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.control-group label {
+  font-weight: 500;
+  color: #495057;
+  white-space: nowrap;
+}
+
+.control-group select,
+.control-group input[type="number"] {
+  padding: 4px 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  min-width: 80px;
+}
+
+.control-group input[type="range"] {
+  width: 60px;
+}
+
+.control-group input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.clear-data-btn {
+  padding: 6px 12px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clear-data-btn:hover {
+  background: #c82333;
+}
+
+.chart-area {
+  position: relative;
+  height: 400px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.pv-chart-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.chart-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding: 10px 15px;
+  background: #e9ecef;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.chart-info p {
+  margin: 0;
+}
+
+/* Responsive Design */
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chart-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  
+  .control-group {
+    justify-content: space-between;
+  }
+  
+  .control-group select,
+  .control-group input[type="number"] {
+    min-width: 100px;
+  }
+  
+  .chart-area {
+    height: 300px;
+  }
+  
+  .chart-info {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .pv-chart-container {
+    padding: 15px;
+  }
+  
+  .chart-controls {
+    padding: 10px;
+  }
+  
+  .control-group {
+    font-size: 12px;
+  }
+  
+  .chart-area {
+    height: 250px;
+  }
+}
+
+/* Animation for smooth transitions */
+.pv-chart-container {
+  transition: all 0.3s ease;
+}
+
+.chart-controls {
+  transition: all 0.2s ease;
+}
+
+/* Focus styles for accessibility */
+.control-group select:focus,
+.control-group input:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.clear-data-btn:focus {
+  outline: 2px solid #dc3545;
+  outline-offset: 2px;
+}

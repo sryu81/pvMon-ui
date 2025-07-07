@@ -1,0 +1,225 @@
+.config-manager-panel {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-left: 4px solid #3498db;
+}
+
+.config-manager-panel h3 {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.config-status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.status-item {
+  font-size: 14px;
+  color: #495057;
+}
+
+.status-item strong {
+  color: #2c3e50;
+  margin-right: 8px;
+}
+
+.status-saved {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.status-unsaved {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.config-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.config-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.save-btn {
+  background-color: #27ae60;
+  color: white;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #229954;
+}
+
+.save-btn:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.export-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.export-btn:hover {
+  background-color: #2980b9;
+}
+
+.import-btn {
+  background-color: #f39c12;
+  color: white;
+}
+
+.import-btn:hover {
+  background-color: #e67e22;
+}
+
+.reset-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.reset-btn:hover {
+  background-color: #c0392b;
+}
+
+.import-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.import-dialog-content {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+}
+
+.import-dialog-content h4 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+.import-dialog-content p {
+  margin: 0 0 20px 0;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.file-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed #ddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.file-input:hover {
+  border-color: #3498db;
+}
+
+.import-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-btn {
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.cancel-btn:hover {
+  background-color: #7f8c8d;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .config-status {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .config-actions {
+    flex-direction: column;
+  }
+  
+  .config-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Auto-save indicator */
+.auto-save-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #7f8c8d;
+  margin-top: 10px;
+}
+
+.auto-save-indicator.saving {
+  color: #f39c12;
+}
+
+.auto-save-indicator.saved {
+  color: #27ae60;
+}
+
+.auto-save-indicator::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.auto-save-indicator.saving::before {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
