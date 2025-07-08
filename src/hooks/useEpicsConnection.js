@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
-const API_BASE_URL = process.env.EPICS_API_URL | 'http://localhost:8080/api/epics';
+const API_BASE_URL = process.env.REACT_APP_EPICS_API_URL || 'http://localhost:8080/api/epics'
 
 export function useEpicsConnection() {
   const [connectionStatus, setConnectionStatus] = useState('Checking...');

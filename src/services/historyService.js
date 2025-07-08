@@ -1,6 +1,6 @@
 class HistoryService {
   constructor() {
-    this.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+    this.baseURL = 'http://localhost:3001';
   }
 
   /**
