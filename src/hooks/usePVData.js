@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const API_BASE_URL = 'http://localhost:8080/api/epics';
+const API_BASE_URL = process.env.REACT_APP_EPICS_API_URL || 'http://localhost:8080/api/epics'
 
 export function usePVData(pollingFrequency, subscribedPVs) {
   const [pvData, setPvData] = useState({});
